@@ -4,7 +4,7 @@ import { User, AuthView } from './types';
 import { dbService } from './services/dbService';
 import Login from './components/Login';
 import Register from './components/Register';
-import Dashboard from './components/Dashboard';
+import Welcome from './components/Welcome';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -43,9 +43,13 @@ const App: React.FC = () => {
     );
   }
 
-  // If user is logged in, show dashboard
+  // If user is logged in, show welcome screen
   if (user) {
-    return <Dashboard user={user} onLogout={handleLogout} />;
+    return (
+      <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center">
+        <Welcome user={user} onLogout={handleLogout} />
+      </div>
+    );
   }
 
   // Auth Layout wrapper for Login/Register
