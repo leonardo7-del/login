@@ -15,7 +15,7 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -31,33 +31,20 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
 
     setIsLoading(true);
 
-    setTimeout(() => {
-      const existingUser = dbService.findUserByEmail(email);
-
-      if (existingUser) {
-        setError('Este correo electrónico ya está registrado.');
-        setIsLoading(false);
-        return;
-      }
-
-      const derivedName = email.split('@')[0];
-
-      const newUser = {
-        id: Math.random().toString(36).substr(2, 9),
-        fullName: derivedName.charAt(0).toUpperCase() + derivedName.slice(1),
-        email,
-        password,
-        createdAt: new Date().toISOString(),
-      };
-
-      dbService.saveUser(newUser);
+    try {
+      await dbService.registerUserRemote(email, password);
       setIsLoading(false);
       setIsSuccess(true);
-      
       setTimeout(() => {
         onSuccess();
       }, 1500);
-    }, 1000);
+    } catch (err: any) {
+      const msg = String(err?.message || '').toLowerCase().includes('fetch')
+        ? 'No se pudo conectar con el servidor. Verifica que el backend esté encendido.'
+        : (err?.message || 'Error en el registro');
+      setError(msg);
+      setIsLoading(false);
+    }
   };
 
   if (isSuccess) {
