@@ -19,7 +19,6 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
     e.preventDefault();
     setError(null);
 
-    // Basic Validations
     if (!email || !password) {
       setError('Por favor complete todos los campos.');
       return;
@@ -32,7 +31,6 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
 
     setIsLoading(true);
 
-    // Simulate registration
     setTimeout(() => {
       const existingUser = dbService.findUserByEmail(email);
 
@@ -42,7 +40,6 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
         return;
       }
 
-      // Generate a default name from the email (e.g., "user" from "user@example.com")
       const derivedName = email.split('@')[0];
 
       const newUser = {
@@ -57,7 +54,6 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
       setIsLoading(false);
       setIsSuccess(true);
       
-      // Auto-redirect to login after 1.5 seconds
       setTimeout(() => {
         onSuccess();
       }, 1500);
@@ -67,13 +63,13 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
   if (isSuccess) {
     return (
       <div className="p-12 text-center">
-        <div className="w-20 h-20 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 bg-emerald-950/30 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
           </svg>
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">¡Cuenta creada!</h3>
-        <p className="text-slate-400">Registro exitoso. Redirigiendo...</p>
+        <p className="text-zinc-400">Registro exitoso. Redirigiendo...</p>
       </div>
     );
   }
@@ -82,12 +78,12 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
     <div className="p-8">
       <div className="mb-8">
         <h3 className="text-xl font-bold text-white mb-1">Crea tu cuenta</h3>
-        <p className="text-sm text-slate-400">Solo necesitas un correo y contraseña</p>
+        <p className="text-sm text-zinc-400">Solo necesitas un correo y contraseña</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg text-sm">
+          <div className="bg-red-950/20 border border-red-900 text-red-400 p-3 rounded-lg text-sm">
             {error}
           </div>
         )}
@@ -125,7 +121,7 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
           type="submit"
           disabled={isLoading}
           className={`
-            w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl 
+            w-full bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 rounded-xl 
             transition-all duration-200 transform mt-4
             flex items-center justify-center gap-2
             ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}
@@ -133,7 +129,7 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
         >
           {isLoading ? (
             <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin"></div>
               <span>Registrando...</span>
             </>
           ) : (
@@ -142,12 +138,12 @@ const Register: React.FC<RegisterProps> = ({ onSuccess, onSwitchToLogin }) => {
         </button>
       </form>
 
-      <div className="mt-8 pt-6 border-t border-slate-800 text-center">
-        <p className="text-sm text-slate-400">
+      <div className="mt-8 pt-6 border-t border-zinc-800 text-center">
+        <p className="text-sm text-zinc-500">
           ¿Ya tienes una cuenta?{' '}
           <button
             onClick={onSwitchToLogin}
-            className="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors"
+            className="text-zinc-200 font-semibold hover:text-white transition-colors"
           >
             Inicia sesión
           </button>

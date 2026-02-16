@@ -20,7 +20,6 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onSwitchToRegister }) => {
     setError(null);
     setIsLoading(true);
 
-    // Simulate API latency
     setTimeout(() => {
       const user = dbService.findUserByEmail(email);
 
@@ -45,12 +44,12 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onSwitchToRegister }) => {
     <div className="p-8">
       <div className="mb-8">
         <h3 className="text-xl font-bold text-white mb-1">Bienvenido</h3>
-        <p className="text-sm text-slate-400">Ingresa tus credenciales para continuar</p>
+        <p className="text-sm text-zinc-400">Ingresa tus credenciales para continuar</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg text-sm">
+          <div className="bg-red-950/20 border border-red-900 text-red-400 p-3 rounded-lg text-sm">
             {error}
           </div>
         )}
@@ -85,7 +84,7 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onSwitchToRegister }) => {
             }
           />
           <div className="flex justify-end">
-            <button type="button" className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
+            <button type="button" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
               ¿Olvidaste tu contraseña?
             </button>
           </div>
@@ -95,7 +94,7 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onSwitchToRegister }) => {
           type="submit"
           disabled={isLoading}
           className={`
-            w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl 
+            w-full bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 rounded-xl 
             transition-all duration-200 transform active:scale-[0.98]
             flex items-center justify-center gap-2
             ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}
@@ -103,7 +102,7 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onSwitchToRegister }) => {
         >
           {isLoading ? (
             <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin"></div>
               <span>Verificando...</span>
             </>
           ) : (
@@ -112,12 +111,12 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onSwitchToRegister }) => {
         </button>
       </form>
 
-      <div className="mt-8 pt-6 border-t border-slate-800 text-center">
-        <p className="text-sm text-slate-400">
+      <div className="mt-8 pt-6 border-t border-zinc-800 text-center">
+        <p className="text-sm text-zinc-500">
           ¿No tienes una cuenta?{' '}
           <button
             onClick={onSwitchToRegister}
-            className="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors"
+            className="text-zinc-200 font-semibold hover:text-white transition-colors"
           >
             Regístrate aquí
           </button>
